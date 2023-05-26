@@ -21,11 +21,12 @@ import pyaudio
 from ovos_plugin_manager.templates.microphone import Microphone
 from ovos_utils.log import LOG
 from speech_recognition import Microphone as _Mic
+from ovos_config import Configuration
 
 
 @dataclass
 class PyAudioMicrophone(Microphone):
-    device: str = "default"
+    device: str = Configuration().get("listener", {}).get("device") or "default"
     period_size: int = 1024
     timeout: float = 5.0
     multiplier: float = 1.0
